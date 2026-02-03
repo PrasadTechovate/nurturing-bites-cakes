@@ -645,7 +645,7 @@ function renderFairnessMetrics() {
                 <div class="stat-value">${offFairness.toFixed(1)}%</div>
                 <div class="stat-details">Average: ${avgOffs.toFixed(1)} offs per staff</div>
                 <div class="fairness-meter">
-                    <div class="fairness-fill" style="width:${offFairness}%"></div>
+                    <div class="fairness-fill" style="width:${offFairness}%; background:${ratingColor}"></div>
                 </div>
             </div>
             
@@ -654,7 +654,7 @@ function renderFairnessMetrics() {
                 <div class="stat-value">${stockFairness.toFixed(1)}%</div>
                 <div class="stat-details">Average: ${avgStock.toFixed(1)} duties per staff</div>
                 <div class="fairness-meter">
-                    <div class="fairness-fill" style="width:${stockFairness}%"></div>
+                    <div class="fairness-fill" style="width:${stockFairness}%; background:${ratingColor}"></div>
                 </div>
             </div>
             
