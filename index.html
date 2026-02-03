@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Nurturing bites and cakes Weekly Off & Stock Duty Distribution Calendar System - 2026</title>
+<title>Fair Staff Management Calendar - 2026</title>
 
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -117,7 +117,7 @@ h3{color:#34495e;margin-top:30px;border-bottom:2px solid #bdc3c7;padding-bottom:
 
 <div class="container fade-in">
     <h1>🏢 Staff Management Dashboard 2026</h1>
-    <p class="subtitle">Nurturing bites and cakes Weekly Off & Stock Duty Distribution System</p>
+    <p class="subtitle">Fair Weekly Off & Stock Duty Distribution System</p>
         <div class="controls">
         <div class="view-controls">
             <button class="view-btn active" data-view="calendar">📅 Calendar View</button>
@@ -187,13 +187,13 @@ h3{color:#34495e;margin-top:30px;border-bottom:2px solid #bdc3c7;padding-bottom:
 // ====== CONFIGURATION ======
 const staff = [
     { id: 1, name: "Vanitha", role: "Operator" },
-    { id: 2, name: "Raju", role: "Operator" },
+    { id: 2, name: "Ram", role: "Operator" },
     { id: 3, name: "Hareesh", role: "Operator" },
-    { id: 4, name: "Jannat", role: "Operator" },
-    { id: 5, name: "Chandhan Kumar", role: "Operator" },
+    { id: 4, name: "Mariya", role: "Operator" },
+    { id: 5, name: "Chandhan", role: "Operator" },
     { id: 6, name: "Kalyan", role: "Operator" },
-    { id: 7, name: "Mariya Vijay", role: "Operator" },
-    { id: 8, name: "Ram Bahadhoor", role: "Operator" }
+    { id: 7, name: "Jannat", role: "Operator" },
+    { id: 8, name: "Raju", role: "Operator" }
 ];
 
 const months = [
@@ -645,7 +645,7 @@ function renderFairnessMetrics() {
                 <div class="stat-value">${offFairness.toFixed(1)}%</div>
                 <div class="stat-details">Average: ${avgOffs.toFixed(1)} offs per staff</div>
                 <div class="fairness-meter">
-                    <div class="fairness-fill" style="width:${offFairness}%; background:${ratingColor}"></div>
+                    <div class="fairness-fill" style="width:${offFairness}%"></div>
                 </div>
             </div>
             
@@ -654,7 +654,7 @@ function renderFairnessMetrics() {
                 <div class="stat-value">${stockFairness.toFixed(1)}%</div>
                 <div class="stat-details">Average: ${avgStock.toFixed(1)} duties per staff</div>
                 <div class="fairness-meter">
-                    <div class="fairness-fill" style="width:${stockFairness}%; background:${ratingColor}"></div>
+                    <div class="fairness-fill" style="width:${stockFairness}%"></div>
                 </div>
             </div>
             
