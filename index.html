@@ -20,7 +20,7 @@ h1{text-align:center;color:#333;margin-bottom:10px;font-size:2.2em}
 .calendar-container{margin-bottom:40px}
 .calendar{display:grid;grid-template-columns:repeat(7,1fr);gap:12px;margin-bottom:25px}
 .header{background:linear-gradient(135deg, #2c3e50 0%, #34495e 100%);color:white;padding:15px;text-align:center;border-radius:10px;font-weight:600;font-size:1.1em}
-.cell{background:white;border-radius:12px;min-height:140px;padding:15px;box-shadow:0 5px 15px rgba(0,0,0,0.08);position:relative;display:flex;flex-direction:column;transition:all 0.3s;border:2px solid transparent}
+.cell{background:white;border-radius:12px;min-height:150px;padding:15px;box-shadow:0 5px 15px rgba(0,0,0,0.08);position:relative;display:flex;flex-direction:column;transition:all 0.3s;border:2px solid transparent}
 .cell:hover{transform:translateY(-3px);box-shadow:0 8px 25px rgba(0,0,0,0.15)}
 .date{font-weight:700;font-size:18px;margin-bottom:8px;color:#2c3e50}
 .day-name{font-size:13px;color:#7f8c8d;margin-left:6px;font-weight:500}
@@ -29,8 +29,9 @@ h1{text-align:center;color:#333;margin-bottom:10px;font-size:2.2em}
 .sunday .day-name{color:rgba(255,255,255,0.9)}
 .today{border:3px solid #4CAF50 !important;background:#f1f8e9}
 .past-date{background:#f8f9fa;opacity:0.8}
-.off-staff{color:#d32f2f;font-weight:600;margin:6px 0;padding:8px 10px;background:#ffebee;border-radius:8px;font-size:14px;border-left:4px solid #d32f2f}
-.stock-incharge{color:#1565c0;font-weight:600;margin:4px 0;font-size:13.5px}
+.off-staff{color:#d32f2f;font-weight:600;margin:6px 0;padding:8px 10px;background:#ffebee;border-radius:8px;font-size:13px;border-left:4px solid #d32f2f}
+.double-off{background:#ffcdd2;border-left:4px solid #c62828}
+.stock-incharge{color:#1565c0;font-weight:600;margin:4px 0;font-size:13px}
 .stock-badge{display:inline-block;background:linear-gradient(135deg, #1565c0 0%, #1976d2 100%);color:white;padding:3px 10px;border-radius:15px;font-size:11px;margin-left:6px;font-weight:600}
 .dashboard{margin:40px 0}
 h2{color:#2c3e50;margin-top:35px;border-bottom:3px solid #667eea;padding-bottom:12px;font-size:1.8em}
@@ -117,7 +118,7 @@ h3{color:#34495e;margin-top:30px;border-bottom:2px solid #bdc3c7;padding-bottom:
 
 <div class="container fade-in">
     <h1>🏢 Staff Management Dashboard 2026</h1>
-    <p class="subtitle">Fair Weekly Off & Stock Duty Distribution System</p>
+    <p class="subtitle">Fair Weekly Off & Stock Duty Distribution System (10 Staff)</p>
         <div class="controls">
         <div class="view-controls">
             <button class="view-btn active" data-view="calendar">📅 Calendar View</button>
@@ -135,7 +136,8 @@ h3{color:#34495e;margin-top:30px;border-bottom:2px solid #bdc3c7;padding-bottom:
     </div>
     
     <div class="legend">
-        <div class="legend-item"><div class="legend-color" style="background:#ffebee"></div>Weekly Off Day</div>
+        <div class="legend-item"><div class="legend-color" style="background:#ffebee"></div>Weekly Off Day (1 staff)</div>
+        <div class="legend-item"><div class="legend-color" style="background:#ffcdd2"></div>Double Off Day (2 staff)</div>
         <div class="legend-item"><div class="legend-color" style="background:#e3f2fd"></div>Stock Incharge</div>
         <div class="legend-item"><div class="legend-color" style="background:#f1f8e9"></div>Today's Date</div>
         <div class="legend-item"><div class="legend-color" style="background:#ff6b6b"></div>Sunday</div>
@@ -152,7 +154,7 @@ h3{color:#34495e;margin-top:30px;border-bottom:2px solid #bdc3c7;padding-bottom:
     </div>
     
     <div class="dashboard">
-        <h2>📊 Monthly Distribution Analysis</h2>
+        <h2>📊 Weekly Distribution Analysis</h2>
         <div class="stats-grid" id="statsGrid"></div>
         
         <h3>📈 Performance Analytics</h3>
@@ -168,7 +170,7 @@ h3{color:#34495e;margin-top:30px;border-bottom:2px solid #bdc3c7;padding-bottom:
             </div>
         </div>
         
-        <h3>⚖️ Fairness & Balance Metrics</h3>
+        <h3>⚖️ Weekly Fairness & Balance</h3>
         <div id="fairnessMetrics"></div>
         
         <h3>👥 Staff Performance Report</h3>
@@ -184,16 +186,18 @@ h3{color:#34495e;margin-top:30px;border-bottom:2px solid #bdc3c7;padding-bottom:
 </div>
 
 <script>
-// ====== CONFIGURATION ======
+// ====== CONFIGURATION FOR 10 STAFF ======
 const staff = [
-    { id: 1, name: "Vanitha", role: "Operator" },
-    { id: 2, name: "Ram", role: "Operator" },
-    { id: 3, name: "Hareesh", role: "Operator" },
-    { id: 4, name: "Mariya", role: "Operator" },
-    { id: 5, name: "Chandhan", role: "Operator" },
-    { id: 6, name: "Kalyan", role: "Operator" },
-    { id: 7, name: "Jannat", role: "Operator" },
-    { id: 8, name: "Raju", role: "Operator" }
+    { id: 1, name: "Assamees", role: "Operator" },
+    { id: 2, name: "Gautam", role: "Operator" },
+    { id: 3, name: "Raju", role: "Operator" },
+    { id: 4, name: "Kalyan", role: "Operator" },
+    { id: 5, name: "Hareesh", role: "Operator" },
+    { id: 6, name: "Ram", role: "Operator" },
+    { id: 7, name: "Vanitha", role: "Operator" },
+    { id: 8, name: "Jannath", role: "Operator" },
+    { id: 9, name: "Chandhan", role: "Operator" },
+    { id: 10, name: "Mariya", role: "Operator" }
 ];
 
 const months = [
@@ -201,7 +205,7 @@ const months = [
     "July", "August", "September", "October", "November", "December"
 ];
 
-const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+const daysOfWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 const shortDays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
 // Start from first Monday of 2026
@@ -213,13 +217,14 @@ let currentView = 'calendar';
 let currentMonth = today.getMonth();
 let currentYear = 2026;
 
-// ====== FAIR DISTRIBUTION SYSTEM ======
+// ====== FAIR DISTRIBUTION SYSTEM FOR 10 STAFF ======
 class FairDistributionSystem {
     constructor() {
         this.staffStats = {};
         this.stockHistory = {};
         this.offHistory = {};
         this.monthlyData = {};
+        this.weeklyRotation = {}; // Track weekly assignments
         this.initialize();
     }
     
@@ -232,77 +237,214 @@ class FairDistributionSystem {
                 workingDays: 0,
                 consecutiveWorkDays: 0,
                 lastOffDate: null,
-                lastStockDate: null
+                lastStockDate: null,
+                weeklyOffs: 0,
+                currentWeekOffs: 0
             };
             this.stockHistory[s.name] = [];
             this.offHistory[s.name] = [];
         });
+        this.weeklyRotation = {};
     }
     
-    // Fair weekly off distribution (3-4 offs per month)
+    // Calculate which week we're in
+    getWeekNumber(date) {
+        const diffDays = Math.floor((date - startDate) / (1000 * 60 * 60 * 24));
+        return Math.floor(diffDays / 7);
+    }
+    
+    // Get weekly off for 10 staff with up to 2 offs per day
     getWeeklyOff(date) {
-        const dayOfWeek = date.getDay();
+        const dayOfWeek = date.getDay(); // 0=Sunday, 1=Monday, etc.
+        const weekNumber = this.getWeekNumber(date);
         const dateStr = date.toISOString().split('T')[0];
         
-        if (dayOfWeek === 0) {
-            // Sunday: Rotate through all staff
-            const weekNumber = Math.floor((date - startDate) / (7 * 24 * 60 * 60 * 1000));
-            const staffIndex = weekNumber % staff.length;
-            return [staff[staffIndex].name];
-        } else {
-            // Weekdays: Ensure each staff gets 3-4 offs per month
-            const monthStart = new Date(date.getFullYear(), date.getMonth(), 1);
-            const monthEnd = new Date(date.getFullYear(), date.getMonth() + 1, 0);
-            const daysInMonth = monthEnd.getDate();
-            
-            // Get staff who haven't reached 4 offs and had off at least 3 days ago
-            const eligibleStaff = staff.filter(s => {
-                const stats = this.staffStats[s.name];
-                const targetOffs = 4; // Aim for 4 offs per month
-                
-                // Check if staff has reached target
-                if (stats.totalOffs >= targetOffs) return false;
-                
-                // Check days since last off
-                if (stats.lastOffDate) {
-                    const daysSince = Math.floor((date - stats.lastOffDate) / (24 * 60 * 60 * 1000));
-                    if (daysSince < 3) return false; // Minimum 3 days between offs
-                }
-                
-                return true;
+        // Reset weekly counter for new week
+        if (!this.weeklyRotation[weekNumber]) {
+            this.weeklyRotation[weekNumber] = {
+                assignedOffs: new Set(),
+                dailyAssignments: {}
+            };
+            // Reset weekly offs count for all staff
+            staff.forEach(s => {
+                this.staffStats[s.name].currentWeekOffs = 0;
             });
+        }
+        
+        const weekData = this.weeklyRotation[weekNumber];
+        
+        // For 10 staff in 7 days, we need:
+        // - 10 offs per week (1 per staff)
+        // - 7 days available
+        // - So: 4 days with 2 offs, 3 days with 1 off
+        
+        if (dayOfWeek === 3) {
+            // Sunday: Always 2 offs
+            return this.getTwoOffsForDay(date, weekNumber, dayOfWeek);
+        } else {
+            // Other days: Use pattern to distribute 2-off days
+            const dayPattern = [
+                1, // Sunday: 2 offs
+                1, // Monday: 2 offs
+                1, // Tuesday: 1 off
+                2, // Wednesday: 2 offs
+                2, // Thursday: 1 off
+                1, // Friday: 2 offs
+                1  // Saturday: 1 off
+            ];
             
-            if (eligibleStaff.length > 0) {
-                // Sort by: 1) Fewest offs, 2) Most days since last off
-                eligibleStaff.sort((a, b) => {
-                    const aOffs = this.staffStats[a.name].totalOffs;
-                    const bOffs = this.staffStats[b.name].totalOffs;
-                    if (aOffs !== bOffs) return aOffs - bOffs;
-                    
-                    const aLast = this.staffStats[a.name].lastOffDate;
-                    const bLast = this.staffStats[b.name].lastOffDate;
-                    const aDays = aLast ? Math.floor((date - aLast) / (24 * 60 * 60 * 1000)) : 999;
-                    const bDays = bLast ? Math.floor((date - bLast) / (24 * 60 * 60 * 1000)) : 999;
-                    return bDays - aDays;
-                });
-                
-                return [eligibleStaff[0].name];
+            const offsNeeded = dayPattern[dayOfWeek];
+            
+            if (offsNeeded === 2) {
+                return this.getTwoOffsForDay(date, weekNumber, dayOfWeek);
+            } else {
+                return this.getOneOffForDay(date, weekNumber, dayOfWeek);
+            }
+        }
+    }
+    
+    // Get two staff for off on the same day
+    getTwoOffsForDay(date, weekNumber, dayOfWeek) {
+        const weekData = this.weeklyRotation[weekNumber];
+        const dayKey = `${weekNumber}-${dayOfWeek}`;
+        
+        // Check if we already assigned for this day
+        if (weekData.dailyAssignments[dayKey]) {
+            return weekData.dailyAssignments[dayKey];
+        }
+        
+        // Find staff who haven't had off this week and had off at least 4 days ago
+        const eligibleStaff = staff.filter(s => {
+            const stats = this.staffStats[s.name];
+            
+            // Hasn't had off this week yet
+            if (stats.currentWeekOffs > 0) return false;
+            
+            // Check days since last off
+            if (stats.lastOffDate) {
+                const daysSince = Math.floor((date - stats.lastOffDate) / (24 * 60 * 60 * 1000));
+                if (daysSince < 4) return false; // Minimum 4 days between offs
             }
             
-            // If no eligible staff, pick one with most days since last off
-            const allStaff = [...staff].sort((a, b) => {
-                const aLast = this.staffStats[a.name].lastOffDate;
-                const bLast = this.staffStats[b.name].lastOffDate;
+            return true;
+        });
+        
+        // Sort by: 1) Fewest total offs this month, 2) Most days since last off
+        eligibleStaff.sort((a, b) => {
+            const aStats = this.staffStats[a.name];
+            const bStats = this.staffStats[b.name];
+            
+            if (aStats.totalOffs !== bStats.totalOffs) {
+                return aStats.totalOffs - bStats.totalOffs;
+            }
+            
+            const aLast = aStats.lastOffDate;
+            const bLast = bStats.lastOffDate;
+            const aDays = aLast ? Math.floor((date - aLast) / (24 * 60 * 60 * 1000)) : 999;
+            const bDays = bLast ? Math.floor((date - bLast) / (24 * 60 * 60 * 1000)) : 999;
+            return bDays - aDays;
+        });
+        
+        let selectedStaff = [];
+        
+        if (eligibleStaff.length >= 2) {
+            selectedStaff = [eligibleStaff[0].name, eligibleStaff[1].name];
+        } else if (eligibleStaff.length === 1) {
+            selectedStaff = [eligibleStaff[0].name];
+            // Need to find second staff who hasn't had off this week
+            const remainingStaff = staff.filter(s => 
+                !selectedStaff.includes(s.name) && 
+                this.staffStats[s.name].currentWeekOffs === 0
+            );
+            if (remainingStaff.length > 0) {
+                selectedStaff.push(remainingStaff[0].name);
+            }
+        } else {
+            // All staff have had off this week? Shouldn't happen, but fallback
+            selectedStaff = [staff[0].name, staff[1].name];
+        }
+        
+        // Update weekly tracking
+        weekData.dailyAssignments[dayKey] = selectedStaff;
+        selectedStaff.forEach(name => {
+            this.staffStats[name].currentWeekOffs = 1;
+            weekData.assignedOffs.add(name);
+        });
+        
+        return selectedStaff;
+    }
+    
+    // Get one staff for off
+    getOneOffForDay(date, weekNumber, dayOfWeek) {
+        const weekData = this.weeklyRotation[weekNumber];
+        const dayKey = `${weekNumber}-${dayOfWeek}`;
+        
+        // Check if we already assigned for this day
+        if (weekData.dailyAssignments[dayKey]) {
+            return weekData.dailyAssignments[dayKey];
+        }
+        
+        // Find staff who haven't had off this week and had off at least 4 days ago
+        const eligibleStaff = staff.filter(s => {
+            const stats = this.staffStats[s.name];
+            
+            // Hasn't had off this week yet
+            if (stats.currentWeekOffs > 0) return false;
+            
+            // Check days since last off
+            if (stats.lastOffDate) {
+                const daysSince = Math.floor((date - stats.lastOffDate) / (24 * 60 * 60 * 1000));
+                if (daysSince < 4) return false;
+            }
+            
+            return true;
+        });
+        
+        if (eligibleStaff.length > 0) {
+            // Sort by: 1) Fewest total offs, 2) Most days since last off
+            eligibleStaff.sort((a, b) => {
+                const aStats = this.staffStats[a.name];
+                const bStats = this.staffStats[b.name];
+                
+                if (aStats.totalOffs !== bStats.totalOffs) {
+                    return aStats.totalOffs - bStats.totalOffs;
+                }
+                
+                const aLast = aStats.lastOffDate;
+                const bLast = bStats.lastOffDate;
                 const aDays = aLast ? Math.floor((date - aLast) / (24 * 60 * 60 * 1000)) : 999;
                 const bDays = bLast ? Math.floor((date - bLast) / (24 * 60 * 60 * 1000)) : 999;
                 return bDays - aDays;
             });
             
-            return [allStaff[0].name];
+            const selectedStaff = [eligibleStaff[0].name];
+            
+            // Update weekly tracking
+            weekData.dailyAssignments[dayKey] = selectedStaff;
+            selectedStaff.forEach(name => {
+                this.staffStats[name].currentWeekOffs = 1;
+                weekData.assignedOffs.add(name);
+            });
+            
+            return selectedStaff;
         }
+        
+        // Fallback: pick staff with most days since last off
+        const allStaff = [...staff].sort((a, b) => {
+            const aLast = this.staffStats[a.name].lastOffDate;
+            const bLast = this.staffStats[b.name].lastOffDate;
+            const aDays = aLast ? Math.floor((date - aLast) / (24 * 60 * 60 * 1000)) : 999;
+            const bDays = bLast ? Math.floor((date - bLast) / (24 * 60 * 60 * 1000)) : 999;
+            return bDays - aDays;
+        });
+        
+        const selectedStaff = [allStaff[0].name];
+        weekData.dailyAssignments[dayKey] = selectedStaff;
+        
+        return selectedStaff;
     }
     
-    // Fair stock duty distribution
+    // Fair stock duty distribution for 10 staff
     getStockIncharge(date, offStaff) {
         const activeStaff = staff.filter(s => !offStaff.includes(s.name)).map(s => s.name);
         
@@ -332,6 +474,7 @@ class FairDistributionSystem {
         // Update off stats
         offStaff.forEach(name => {
             this.staffStats[name].totalOffs++;
+            this.staffStats[name].weeklyOffs++;
             if (isSunday) this.staffStats[name].sundayOffs++;
             this.staffStats[name].lastOffDate = date;
             this.offHistory[name].push(date.toISOString().split('T')[0]);
@@ -362,8 +505,11 @@ class FairDistributionSystem {
             this.staffStats[s.name].consecutiveWorkDays = 0;
             this.staffStats[s.name].lastOffDate = null;
             this.staffStats[s.name].lastStockDate = null;
+            this.staffStats[s.name].weeklyOffs = 0;
+            this.staffStats[s.name].currentWeekOffs = 0;
         });
         this.monthlyData = {};
+        this.weeklyRotation = {};
     }
 }
 
@@ -423,6 +569,10 @@ function renderCalendar(month) {
         if (isToday) cellClass += " today";
         if (isPast) cellClass += " past-date";
         
+        // Check if double off day
+        const isDoubleOff = offStaff.length === 2;
+        const offClass = isDoubleOff ? "off-staff double-off" : "off-staff";
+        
         $cal.append(`
             <div class="${cellClass}">
                 <div class="date">
@@ -431,8 +581,8 @@ function renderCalendar(month) {
                     ${isSunday ? '🎉' : ''}
                 </div>
                 ${offStaff.length > 0 ? `
-                    <div class="off-staff">
-                        🏖️ OFF: ${offStaff.join(', ')}
+                    <div class="${offClass}">
+                        🏖️ ${offStaff.length === 2 ? 'DOUBLE OFF:' : 'OFF:'} ${offStaff.join(', ')}
                     </div>
                 ` : ''}
                 <div class="stock-incharge">
@@ -442,6 +592,7 @@ function renderCalendar(month) {
                 </div>
                 <div style="margin-top:auto; padding-top:10px; font-size:12px; color:#7f8c8d">
                     👥 Active: ${staff.length - offStaff.length} staff
+                    ${isDoubleOff ? ' | 📅 Double Off Day' : ''}
                 </div>
             </div>
         `);
@@ -476,6 +627,7 @@ function renderListView() {
         
         const { offStaff, stockIncharge } = dayData;
         const activeStaff = staff.filter(s => !offStaff.includes(s.name)).map(s => s.name);
+        const isDoubleOff = offStaff.length === 2;
         
         let itemClass = "list-day-item";
         if (isSunday) itemClass += " list-sunday";
@@ -487,7 +639,7 @@ function renderListView() {
                 <div class="list-day-header">
                     <div>
                         <span class="list-date">${date.getDate()} ${months[date.getMonth()]}</span>
-                        <span class="list-day">${daysOfWeek[date.getDay()]}</span>
+                        <span class="list-day">${daysOfWeek[date.getDay()]} ${isDoubleOff ? '📅' : ''}</span>
                     </div>
                     <div style="color:#7f8c8d; font-size:13px">
                         ${isPast ? '✅ Completed' : '📅 Upcoming'}
@@ -495,7 +647,7 @@ function renderListView() {
                 </div>
                 <div class="list-details">
                     <div class="list-detail-item">
-                        <div class="list-detail-label">Weekly Off</div>
+                        <div class="list-detail-label">Weekly Off ${isDoubleOff ? '(Double)' : ''}</div>
                         <div class="list-detail-value list-off">
                             ${offStaff.length > 0 ? `🏖️ ${offStaff.join(', ')}` : 'All staff working'}
                         </div>
@@ -550,13 +702,19 @@ function renderStatistics() {
     const leastOffs = sortedByOffs[staffData.length - 1];
     const mostStock = sortedByStock[0];
     
+    // Calculate weeks in month
+    const weeksInMonth = Math.ceil(totalDays / 7);
+    const expectedWeeklyOffs = 10; // Each staff gets 1 off per week
+    const totalExpectedOffs = weeksInMonth * expectedWeeklyOffs;
+    
     $stats.html(`
         <div class="stat-card">
             <div class="stat-title">Monthly Overview</div>
             <div class="stat-value">${totalOffs} Off Days</div>
             <div class="stat-details">
                 ${totalStock} stock duties assigned<br>
-                Average: ${avgOffs} offs per staff
+                ${weeksInMonth} weeks, ${staff.length} staff<br>
+                Target: ${totalExpectedOffs} offs this month
             </div>
         </div>
         
@@ -595,7 +753,8 @@ function renderFairnessMetrics() {
     const staffData = staff.map(s => ({
         name: s.name,
         offs: distributionSystem.staffStats[s.name].totalOffs,
-        stock: distributionSystem.staffStats[s.name].stockDuties
+        stock: distributionSystem.staffStats[s.name].stockDuties,
+        weeklyOffs: distributionSystem.staffStats[s.name].weeklyOffs
     }));
     
     // Calculate fairness scores
@@ -629,6 +788,10 @@ function renderFairnessMetrics() {
         ratingColor = "#2196F3";
     }
     
+    // Calculate weekly distribution
+    const totalDays = new Date(currentYear, currentMonth + 1, 0).getDate();
+    const weeksInMonth = Math.ceil(totalDays / 7);
+    
     $metrics.html(`
         <div class="stats-grid">
             <div class="stat-card">
@@ -641,11 +804,20 @@ function renderFairnessMetrics() {
             </div>
             
             <div class="stat-card">
+                <div class="stat-title">Weekly Distribution</div>
+                <div class="stat-value">${weeksInMonth} weeks</div>
+                <div class="stat-details">
+                    ${staff.length} staff × ${weeksInMonth} weeks = ${staff.length * weeksInMonth} weekly offs<br>
+                    Target: 1 off/week per staff
+                </div>
+            </div>
+            
+            <div class="stat-card">
                 <div class="stat-title">Off Days Fairness</div>
                 <div class="stat-value">${offFairness.toFixed(1)}%</div>
                 <div class="stat-details">Average: ${avgOffs.toFixed(1)} offs per staff</div>
                 <div class="fairness-meter">
-                    <div class="fairness-fill" style="width:${offFairness}%"></div>
+                    <div class="fairness-fill" style="width:${offFairness}%; background:${ratingColor}"></div>
                 </div>
             </div>
             
@@ -654,47 +826,11 @@ function renderFairnessMetrics() {
                 <div class="stat-value">${stockFairness.toFixed(1)}%</div>
                 <div class="stat-details">Average: ${avgStock.toFixed(1)} duties per staff</div>
                 <div class="fairness-meter">
-                    <div class="fairness-fill" style="width:${stockFairness}%"></div>
-                </div>
-            </div>
-            
-            <div class="stat-card">
-                <div class="stat-title">Distribution Range</div>
-                <div class="stat-value">
-                    ${Math.min(...staffData.map(s => s.offs))}-${Math.max(...staffData.map(s => s.offs))}
-                </div>
-                <div class="stat-details">
-                    Off days range<br>
-                    Stock: ${Math.min(...staffData.map(s => s.stock))}-${Math.max(...staffData.map(s => s.stock))}
+                    <div class="fairness-fill" style="width:${stockFairness}%; background:${ratingColor}"></div>
                 </div>
             </div>
         </div>
         
-        <div style="margin-top:30px; background:white; border-radius:15px; padding:25px; box-shadow:0 5px 20px rgba(0,0,0,0.1)">
-            <h4 style="margin-top:0; color:#2c3e50">Staff Distribution Analysis</h4>
-            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:15px">
-                ${staffData.map(s => {
-                    const offDeviation = ((s.offs - avgOffs) / avgOffs * 100).toFixed(1);
-                    const stockDeviation = ((s.stock - avgStock) / avgStock * 100).toFixed(1);
-                    const offColor = Math.abs(offDeviation) > 25 ? '#ff6b6b' : Math.abs(offDeviation) > 15 ? '#FF9800' : '#4CAF50';
-                    const stockColor = Math.abs(stockDeviation) > 25 ? '#ff6b6b' : Math.abs(stockDeviation) > 15 ? '#FF9800' : '#1565c0';
-                    
-                    return `
-                        <div style="padding:15px; background:#f8f9fa; border-radius:10px; border-left:4px solid ${offColor}">
-                            <div style="font-weight:600; color:#2c3e50; margin-bottom:10px">${s.name}</div>
-                            <div style="display:flex; justify-content:space-between; margin-bottom:5px">
-                                <span style="color:#666">Offs:</span>
-                                <span style="font-weight:600; color:${offColor}">${s.offs} (${offDeviation}%)</span>
-                            </div>
-                            <div style="display:flex; justify-content:space-between">
-                                <span style="color:#666">Stock:</span>
-                                <span style="font-weight:600; color:${stockColor}">${s.stock} (${stockDeviation}%)</span>
-                            </div>
-                        </div>
-                    `;
-                }).join('')}
-            </div>
-        </div>
     `);
 }
 
@@ -745,7 +881,7 @@ function renderCharts() {
             plugins: {
                 title: {
                     display: true,
-                    text: '📅 Off Days Distribution',
+                    text: '📅 Off Days Distribution (10 Staff)',
                     font: { size: 16 }
                 },
                 legend: { position: 'top' }
@@ -772,7 +908,8 @@ function renderCharts() {
                 data: stockData,
                 backgroundColor: [
                     '#667eea', '#764ba2', '#4CAF50', '#FF9800',
-                    '#2196F3', '#f44336', '#9C27B0', '#009688'
+                    '#2196F3', '#f44336', '#9C27B0', '#009688',
+                    '#FF5722', '#795548'
                 ],
                 borderWidth: 1
             }]
@@ -782,7 +919,7 @@ function renderCharts() {
             plugins: {
                 title: {
                     display: true,
-                    text: '📦 Stock Duties Distribution',
+                    text: '📦 Stock Duties Distribution (10 Staff)',
                     font: { size: 16 }
                 },
                 legend: {
@@ -820,7 +957,7 @@ function renderCharts() {
             plugins: {
                 title: {
                     display: true,
-                    text: '⚖️ Workload Balance',
+                    text: '⚖️ Workload Balance (10 Staff)',
                     font: { size: 16 }
                 }
             },
@@ -843,6 +980,10 @@ function renderPerformanceReport() {
         ...distributionSystem.staffStats[s.name]
     }));
     
+    const totalDays = new Date(currentYear, currentMonth + 1, 0).getDate();
+    const weeksInMonth = Math.ceil(totalDays / 7);
+    const expectedOffs = weeksInMonth; // Each staff should have 1 off per week
+    
     const avgOffs = staffData.reduce((sum, s) => sum + s.totalOffs, 0) / staffData.length;
     const avgStock = staffData.reduce((sum, s) => sum + s.stockDuties, 0) / staffData.length;
     
@@ -856,7 +997,7 @@ function renderPerformanceReport() {
                     <th>Sunday Offs</th>
                     <th>Stock Duties</th>
                     <th>Working Days</th>
-                    <th>Balance Score</th>
+                    <th>Weekly Offs</th>
                     <th>Status</th>
                 </tr>
             </thead>
@@ -864,7 +1005,12 @@ function renderPerformanceReport() {
     `;
     
     staffData.forEach(s => {
-        const offDeviation = ((s.totalOffs - avgOffs) / avgOffs * 100).toFixed(1);
+        const weeklyStatus = s.totalOffs === expectedOffs ? '✅ On Track' : 
+                           s.totalOffs > expectedOffs ? '⚠️ Extra Offs' : '❌ Behind';
+        const weeklyColor = s.totalOffs === expectedOffs ? '#4CAF50' : 
+                          s.totalOffs > expectedOffs ? '#FF9800' : '#f44336';
+        
+        const offDeviation = ((s.totalOffs - expectedOffs) / expectedOffs * 100).toFixed(1);
         const stockDeviation = ((s.stockDuties - avgStock) / avgStock * 100).toFixed(1);
         const balanceScore = 100 - (Math.abs(parseFloat(offDeviation)) + Math.abs(parseFloat(stockDeviation))) / 2;
         
@@ -886,17 +1032,18 @@ function renderPerformanceReport() {
             <tr>
                 <td><strong>${s.name}</strong></td>
                 <td>${s.role}</td>
-                <td style="font-weight:600; color:#${s.totalOffs >= 3 && s.totalOffs <= 4 ? '4CAF50' : 'f44336'}">
-                    ${s.totalOffs}
-                    ${s.totalOffs >= 3 && s.totalOffs <= 4 ? '✅' : '❌'}
+                <td style="font-weight:600; color:#${s.totalOffs === expectedOffs ? '4CAF50' : 
+                  s.totalOffs > expectedOffs ? 'FF9800' : 'f44336'}">
+                    ${s.totalOffs} 
+                    ${s.totalOffs === expectedOffs ? '✅' : 
+                     s.totalOffs > expectedOffs ? '📈' : '📉'}
                 </td>
                 <td>${s.sundayOffs}</td>
                 <td style="color:#1565c0; font-weight:600">${s.stockDuties}</td>
                 <td>${s.workingDays}</td>
-                <td style="background:${balanceScore >= 85 ? '#e8f5e9' : balanceScore >= 70 ? '#fff3e0' : '#ffebee'};
-                   color:${balanceScore >= 85 ? '#2e7d32' : balanceScore >= 70 ? '#f57c00' : '#c62828'};
-                   font-weight:600">
-                    ${balanceScore.toFixed(1)}%
+                <td style="color:${weeklyColor}; font-weight:600">
+                    ${s.totalOffs}/${expectedOffs} 
+                    (${weeklyStatus})
                 </td>
                 <td style="color:${statusColor}; font-weight:600">
                     ${statusIcon} ${status}
@@ -910,35 +1057,29 @@ function renderPerformanceReport() {
         </table>
         
         <div style="margin-top:30px; background:linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); border-radius:15px; padding:25px;">
-            <h4 style="margin-top:0; color:#2c3e50">📋 Monthly Summary</h4>
+            <h4 style="margin-top:0; color:#2c3e50">📋 Monthly Summary (${staff.length} Staff)</h4>
             <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(250px, 1fr)); gap:20px;">
+                <div style="padding:15px; background:white; border-radius:10px; text-align:center">
+                    <div style="font-size:12px; color:#666; margin-bottom:5px">Weeks in Month</div>
+                    <div style="font-size:28px; font-weight:700; color:#667eea">${weeksInMonth}</div>
+                    <div style="font-size:12px; color:#666">Target: 1 off/week</div>
+                </div>
                 <div style="padding:15px; background:white; border-radius:10px; text-align:center">
                     <div style="font-size:12px; color:#666; margin-bottom:5px">Average Offs per Staff</div>
                     <div style="font-size:28px; font-weight:700; color:#4CAF50">${avgOffs.toFixed(1)}</div>
-                    <div style="font-size:12px; color:#666">Target: 3-4 offs</div>
-                </div>
-                <div style="padding:15px; background:white; border-radius:10px; text-align:center">
-                    <div style="font-size:12px; color:#666; margin-bottom:5px">Average Stock Duties</div>
-                    <div style="font-size:28px; font-weight:700; color:#1565c0">${avgStock.toFixed(1)}</div>
-                    <div style="font-size:12px; color:#666">Fairly distributed</div>
+                    <div style="font-size:12px; color:#666">Expected: ${expectedOffs} offs</div>
                 </div>
                 <div style="padding:15px; background:white; border-radius:10px; text-align:center">
                     <div style="font-size:12px; color:#666; margin-bottom:5px">Staff Meeting Target</div>
                     <div style="font-size:28px; font-weight:700; color:#4CAF50">
-                        ${staffData.filter(s => s.totalOffs >= 3 && s.totalOffs <= 4).length}/${staff.length}
+                        ${staffData.filter(s => s.totalOffs === expectedOffs).length}/${staff.length}
                     </div>
-                    <div style="font-size:12px; color:#666">3-4 offs per month</div>
+                    <div style="font-size:12px; color:#666">1 off per week achieved</div>
                 </div>
                 <div style="padding:15px; background:white; border-radius:10px; text-align:center">
-                    <div style="font-size:12px; color:#666; margin-bottom:5px">Overall Fairness</div>
-                    <div style="font-size:28px; font-weight:700; color:#667eea">
-                        ${((staffData.reduce((sum, s) => {
-                            const offDev = Math.abs((s.totalOffs - avgOffs) / avgOffs * 100);
-                            const stockDev = Math.abs((s.stockDuties - avgStock) / avgStock * 100);
-                            return sum + (100 - (offDev + stockDev) / 2);
-                        }, 0) / staffData.length)).toFixed(1)}%
-                    </div>
-                    <div style="font-size:12px; color:#666">Higher is better</div>
+                    <div style="font-size:12px; color:#666; margin-bottom:5px">Double Off Days</div>
+                    <div style="font-size:28px; font-weight:700; color:#d32f2f">${weeksInMonth * 4}</div>
+                    <div style="font-size:12px; color:#666">4 days/week × ${weeksInMonth} weeks</div>
                 </div>
             </div>
         </div>
@@ -968,7 +1109,7 @@ function switchView(view) {
 
 // ====== EXPORT FUNCTIONS ======
 function exportToCSV() {
-    let csv = 'Staff Name,Role,Total Offs,Sunday Offs,Stock Duties,Working Days,Off Deviation %,Stock Deviation %,Balance Score,Status\n';
+    let csv = 'Staff Name,Role,Total Offs,Sunday Offs,Stock Duties,Working Days,Weekly Offs,Expected Weekly Offs,Status\n';
     
     const staffData = staff.map(s => ({
         name: s.name,
@@ -976,22 +1117,21 @@ function exportToCSV() {
         ...distributionSystem.staffStats[s.name]
     }));
     
-    const avgOffs = staffData.reduce((sum, s) => sum + s.totalOffs, 0) / staffData.length;
-    const avgStock = staffData.reduce((sum, s) => sum + s.stockDuties, 0) / staffData.length;
+    const totalDays = new Date(currentYear, currentMonth + 1, 0).getDate();
+    const weeksInMonth = Math.ceil(totalDays / 7);
+    const expectedOffs = weeksInMonth;
     
     staffData.forEach(s => {
-        const offDeviation = ((s.totalOffs - avgOffs) / avgOffs * 100).toFixed(2);
-        const stockDeviation = ((s.stockDuties - avgStock) / avgStock * 100).toFixed(2);
-        const balanceScore = 100 - (Math.abs(parseFloat(offDeviation)) + Math.abs(parseFloat(stockDeviation))) / 2;
-        const status = balanceScore >= 85 ? 'Balanced' : balanceScore >= 70 ? 'Needs Attention' : 'Unbalanced';
+        const weeklyStatus = s.totalOffs === expectedOffs ? 'On Track' : 
+                           s.totalOffs > expectedOffs ? 'Extra Offs' : 'Behind';
         
-        csv += `"${s.name}","${s.role}",${s.totalOffs},${s.sundayOffs},${s.stockDuties},${s.workingDays},${offDeviation},${stockDeviation},${balanceScore.toFixed(2)},"${status}"\n`;
+        csv += `"${s.name}","${s.role}",${s.totalOffs},${s.sundayOffs},${s.stockDuties},${s.workingDays},${s.totalOffs},${expectedOffs},"${weeklyStatus}"\n`;
     });
     
     const blob = new Blob([csv], {type: 'text/csv;charset=utf-8;'});
     const link = document.createElement("a");
     link.href = URL.createObjectURL(blob);
-    link.download = `Staff_Performance_${months[currentMonth]}_${currentYear}.csv`;
+    link.download = `Staff_Performance_${months[currentMonth]}_${currentYear}_10Staff.csv`;
     link.click();
 }
 
@@ -1046,7 +1186,6 @@ function renderMonth(month) {
 $(document).ready(function() {
     // Initialize UI
     initializeMonthTabs();
-    initializeFilters();
     
     // Tab click handler
     $("#tabs").on("click", ".tab", function() {
@@ -1060,21 +1199,6 @@ $(document).ready(function() {
     $(".view-btn").click(function() {
         const view = $(this).data("view");
         switchView(view);
-    });
-    
-    // Filter handlers
-    $("#filterStaff").change(function() {
-        const selected = $(this).val();
-        if (selected) {
-            alert(`Filter by ${selected} - This feature requires additional implementation.`);
-        }
-    });
-    
-    $("#filterMonth").change(function() {
-        const month = $(this).val();
-        if (month !== "") {
-            renderMonth(parseInt(month));
-        }
     });
     
     // Start with current month
